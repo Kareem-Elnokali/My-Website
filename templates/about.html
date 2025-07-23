@@ -1,0 +1,556 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About Us{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'style.css' %}" />
+<link rel="stylesheet" href="{% static 'css/all.min.css' %}" />
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet" />
+<link rel="shortcut icon" href="{% static 'images/icon.png' %}" type="image/x-icon" />
+{% endblock %}
+{% block navbar %}
+{% include 'partials/navbar.html' %}
+{% endblock %}
+{% block content %}
+<style>h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: "Montserrat", sans-serif;
+    }
+    
+    body {
+      font-family: "Poppins", sans-serif;
+    }
+    
+    .nav-link {
+      color: #000 !important;
+      font-size: 14px;
+      font-weight: 400;
+      position: relative;
+    }
+    
+    .homeBg {
+      background-image: url(images/math-homepage.png);
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      width: 100%;
+      height: 100vh;
+    }
+    .darkLayer {
+      background-color: rgba(0, 0, 0, 0.556);
+      width: 100%;
+      height: 100%;
+    }
+    
+    .icon1 {
+      background-color: rgba(0, 0, 0, 0.515);
+      box-shadow: 0 0 0 2px #55833d;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      transition: 0.5s;
+      color: white;
+    }
+    .icon1:hover {
+      background-color: #55833d;
+      box-shadow: 0 0 0 2px #55833d5b;
+    }
+    
+    @media screen and (max-width: 991.9px) {
+      .navbar-nav {
+        background-color: #fff;
+      }
+    }
+    
+    @media screen and (max-width: 991.9px) {
+      .nav-link {
+        color: black !important;
+        text-align: center;
+        margin: 10px 0;
+        font-size: 13px;
+      }
+    }
+    @media screen and (min-width: 0) and (max-width: 990px) {
+      .nav-link,
+      .navbar-nav {
+        border-bottom: 1px solid #0000001f;
+        text-align: left;
+      }
+      #home {
+        border-top: 1px solid #d2d2d2 !important;
+      }
+    }
+    .h2Title {
+      position: relative;
+      padding-bottom: 30px;
+      margin-bottom: 50px;
+      font-weight: 600;
+      font-size: calc(1.5rem + 1.5vw) !important;
+    }
+    .h2Title::after {
+      content: "";
+      margin: auto !important;
+      background-color: #55833d;
+      height: 1px;
+      width: 160px;
+      position: absolute;
+      left: 0px;
+      right: 0px;
+      bottom: 10px;
+    }
+    .purple {
+      color: #55833d;
+      font-weight: 800;
+      font-size: calc(1.6rem + 1.5vw) !important;
+    }
+    .h2Title:before {
+      content: "";
+      margin: auto !important;
+      position: absolute;
+      border-color: #55833d;
+      border-style: solid;
+      border-width: 1px 0;
+      bottom: 5.5px;
+      left: 0px;
+      right: 0px;
+      width: 70px;
+      padding: 4px 0 5px;
+    }
+    .servicesbox {
+      box-shadow: 0 3px 7px rgb(0 0 0/0.15);
+    }
+    .service:hover .i-color {
+      transition: 0.4s;
+      transform: translateY(-5px);
+      -webkit-transform: translateY(-5px);
+      -moz-transform: translateY(-5px);
+      -ms-transform: translateY(-5px);
+      -o-transform: translateY(-5px);
+    }
+    .pink {
+      background-color: #55833d;
+      height: 2.5px;
+      width: 40px;
+      transition: 0.4s;
+      margin: 10px 0 7px;
+    }
+    .service:hover .pink {
+      width: 70px;
+      transition: 0.4s;
+    }
+    .servicesbox {
+      transition: 0.4s;
+      height: 85%;
+      background-color: #fff;
+    }
+    .sellingbox:hover,
+    .servicesbox:hover {
+      transition: 0.4s;
+      box-shadow: 0 3px 7px rgb(0 0 0/0.36);
+    }
+    .i-color {
+      color: #55833d;
+      transition: 0.4s;
+    }
+    .fs18 {
+      font-size: calc(0.7rem + 0.6vw) !important;
+    }
+    
+    .nav-link {
+      transition: 0.3s !important;
+    }
+    .nav-link:hover {
+      transition: 0.3s !important;
+      color: #55833d !important;
+    }
+    .submitButton {
+      border-radius: 5rem;
+      padding: 0.9rem 2.1rem;
+      font-size: 1rem;
+      background-color: #55833d;
+      color: #fff;
+      border: none;
+      transition: 0.5s;
+    }
+    .submitButton:hover {
+      box-shadow: 0 0 0 4px #55833d5b;
+      background-color: #4f7839;
+    }
+    .icon5Parent {
+      font-size: 1.7rem;
+      display: flex;
+    }
+    .icon5child {
+      box-shadow: 0 0 0 3px #55833d;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      transition: 0.5s;
+      font-size: 20px;
+    }
+    .icon5child:hover {
+      background-color: #55833d;
+      color: #fff;
+      box-shadow: 0 0 0 3px #55833d5b;
+    }
+    .icon5 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .icon5a {
+      color: #343a40 !important;
+    }
+    .icon5a:hover {
+      text-decoration: none;
+      color: #fff;
+    }
+    .icon5a:hover .icon5child {
+      background-color: #55833d;
+      color: #fff;
+      box-shadow: 0 0 0 3px #55833d5b;
+      text-decoration: none;
+    }
+    .contacticon {
+      color: #55833d !important;
+      font-size: 20px !important;
+      margin-right: 10px;
+    }
+    .nav-link::after {
+      content: "";
+      background-color: #1c3647;
+      position: absolute;
+      width: 0%;
+      bottom: 0;
+      left: 16px;
+      height: 2.5px;
+      transition: 0.5s;
+    }
+    .nav-item:hover .nav-link::after {
+      width: 36px;
+      color: #000 !important;
+      background-color: #466d31 !important;
+    }
+    @media screen and (max-width: 992px) {
+      .nav-link::after {
+        width: 0px !important;
+      }
+    }
+    @media screen and (max-width: 992px) {
+      .submitButton {
+        font-size: 12px;
+        text-align: center;
+        padding: 0.8rem 2rem;
+      }
+    }
+    #text-rotator {
+      position: relative;
+      height: 200px;
+    }
+    
+    .rotating-text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      font-size: 42px;
+      line-height: 1.3;
+      padding: 0 10px;
+      font-size: calc(1rem + 1.5vw);
+    }
+    
+    .rotating-text.active {
+      opacity: 1;
+    }
+    p {
+      font-size: calc(0.65rem + 0.35vw) !important;
+    }
+    h3 {
+      font-size: calc(1.15rem + 0.35vw) !important;
+    }
+    .spansize {
+      font-size: calc(0.65rem + 0.35vw) !important;
+    }
+    input {
+      font-size: calc(0.65rem + 0.35vw) !important;
+    }
+    textarea {
+      font-size: calc(0.65rem + 0.35vw) !important;
+    }
+    
+    @media screen and (max-width: 992px) {
+      .navimg {
+        width: 130px !important;
+      }
+    }
+    @media screen and (max-width: 576px) {
+      .icon1,
+      .icon5child {
+        width: 30px !important;
+        height: 30px !important;
+      }
+    }
+    @media screen and (max-width: 992px) {
+      .navicon {
+        font-size: 20px !important;
+      }
+    }
+    .imgBorder {
+      box-shadow: 0 0 0 8px #55833d inset;
+      border-radius: 5px;
+    }
+    @media screen and (max-width: 992px) {
+      .imgBorder {
+        box-shadow: none;
+      }
+    }
+    .profilePic {
+      transform: translateY(24px) translateX(20px);
+      margin-left: 0 !important;
+      padding-left: 0px !important;
+    }
+    @media screen and (min-width: 0px) and (max-width: 768px) {
+      .profilePic {
+        transform: translateY(0px) translateX(0px);
+      }
+    }
+    @media screen and (max-width: 767px) {
+      .profilePic {
+        justify-content: center;
+      }
+    }
+    .aboutimg {
+      height: 400px;
+      width: 98%;
+    }
+    @media screen and (min-width: 360px) and (max-width: 767px) {
+      .aboutimg {
+        height: 260px !important;
+        width: 60% !important;
+      }
+    }
+    @media screen and (max-width: 360px) {
+      .aboutimg {
+        height: 260px !important;
+        width: 100% !important;
+      }
+    }
+    </style>
+<!-- About us -->
+<section class="my-5" id="about">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Left Column: Image -->
+      <div class="col-md-5">
+        <div class="text-center">
+          <div class="imgBorder">
+            <div class="profilePic position-relative overflow-hidden d-flex mb-2">
+              <img
+                src="{% static 'images/bg-homepage.png' %}"
+                alt=""
+                class="rounded aboutimg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text Column -->
+      <div class="col-md-7">
+        <div class="">
+          <h2 class="fw-bold mb-3 h2Title text-center">
+            <span class="purple">A</span>bout Our Company
+          </h2>
+          <p class="text-muted fs-6">
+            <strong>Our Company </strong> is a professional
+            environmental hygiene company dedicated to providing top-tier
+            cleaning, sanitation, and disinfection services for homes,
+            businesses, and institutions. With a focus on health, safety, and
+            sustainability, our team uses eco-friendly methods to keep your
+            spaces clean and your people protected.
+          </p>
+          <p class="text-muted fs-6">
+            Whether it’s virus prevention, odor control, waste management, or
+            air quality testing — we combine technology, experience, and care to
+            deliver hygienic environments that meet international standards.
+          </p>
+
+          <ul class="list-unstyled mt-4">
+            <li class="mb-2 d-flex align-items-center">
+              <i class="fas fa-spray-can-sparkles text-primary mr-2" style="width: 20px"></i>
+              <p class="mb-0">Certified disinfection for surfaces and air systems</p>
+            </li>
+
+            <li class="mb-2 d-flex align-items-center">
+              <i class="fas fa-recycle text-success mr-2" style="width: 20px"></i>
+              <p class="mb-0">Eco-friendly cleaning products and practices</p>
+            </li>
+
+            <li class="mb-2 d-flex align-items-center">
+              <i class="fas fa-wind text-info mr-2" style="width: 20px"></i>
+              <p class="mb-0">Indoor air quality assessments and purification</p>
+            </li>
+
+            <li class="mb-2 d-flex align-items-center">
+              <i class="fas fa-trash-alt text-danger mr-2" style="width: 20px"></i>
+              <p class="mb-0">Safe handling and disposal of all types of waste</p>
+            </li>
+
+            <li class="mb-2 d-flex align-items-center">
+              <i class="fas fa-clipboard-check text-warning mr-2" style="width: 20px"></i>
+              <p class="mb-0">Real-time service reports sent via WhatsApp or email</p>
+            </li>
+
+            <li class="mb-2 d-flex align-items-center">
+              <i class="fas fa-clock text-secondary mr-2" style="width: 20px"></i>
+              <p class="mb-0">Flexible scheduling with emergency response options</p>
+            </li>
+
+            <li class="mb-2 d-flex align-items-center">
+              <i class="fab fa-whatsapp text-success mr-2" style="width: 20px"></i>
+              <p class="mb-0">Daily updates and customer support via WhatsApp</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /About us -->
+
+    <!-- Contact us -->
+<section id="CONTACT" class="border-top">
+  <div class="py-3">
+    <div class="my-5">
+      <div>
+        <div class="container servicesShadow padding">
+          <h2 class="text-dark mb-3 text-center h2Title">
+            <span class="purple">C</span>ontact Us
+          </h2>
+          <div class="row">
+            <!-- Contact Form -->
+            <div class="col-md-6 mt-5">
+              <div>
+                <h3 style="font-size: 32px" class="blueLine text-dark">
+                  Request a Service or Ask a Question
+                </h3>
+                <form action="" class="pt-1">
+                  <input
+                    type="text"
+                    name="userName"
+                    id="userName"
+                    class="form-control"
+                    style="margin-bottom: 2rem"
+                    placeholder="Your Name"
+                    required
+                  />
+                  <input
+                    type="email"
+                    name="userEmail"
+                    id="userEmail"
+                    class="form-control"
+                    placeholder="Your Email"
+                    style="margin-bottom: 2rem"
+                    required
+                  />
+                  <input
+                    type="text"
+                    name="userSubject"
+                    id="userSubject"
+                    class="form-control"
+                    placeholder="Subject"
+                    required
+                    style="margin-bottom: 2rem"
+                  />
+                  <textarea
+                    name="userMessage"
+                    id="userMessage"
+                    rows="5"
+                    class="form-control"
+                    placeholder="Your Message"
+                    required
+                    style="margin-bottom: 2rem"
+                  ></textarea>
+                  <button type="submit" class="submitButton">
+                    Send Message
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="col-md-6 mt-5">
+              <h3 style="font-size: 32px" class="blueLine text-dark">
+                Get in Touch
+              </h3>
+              <p
+                style="font-size: 1.25rem; font-weight: 300"
+                class="pb-1 text-dark"
+              >
+                For inquiries about our cleaning services, disinfection packages,
+                or hygiene consultations, contact us directly via phone, WhatsApp,
+                or email. Our support team will get back to you shortly.
+              </p>
+
+              <div class="pt-3 text-dark">
+                <div class="mt-2 align-items-center d-flex">
+                  <span class="fas fa-phone fa-xs contacticon spansize"></span>
+                  <span class="fa-brands fa-whatsapp fa-xs contacticon spansize"></span>
+                  <span class="spansize">
+                    <strong>01234567890</strong> – WhatsApp & Phone Calls
+                  </span>
+                </div>
+                <div class="mt-2 align-items-center d-flex">
+                  <span class="fa-brands fa-whatsapp fa-xs contacticon spansize"></span>
+                  <span class="spansize">
+                    <strong>01234567891</strong> – WhatsApp Only
+                  </span>
+                </div>
+                <div class="mt-2 align-items-center d-flex">
+                  <span class="fa-solid fa-envelope fa-xs contacticon spansize"></span>
+                  <span class="spansize">info@hygienecompany.com</span>
+                </div>
+              </div>
+
+              <div class="icon5Parent mt-4">
+                <a href="#" class="icon5a mx-1" target="_blank">
+                  <i class="fa-brands fa-whatsapp d-flex justify-content-center align-items-center icon5child"></i>
+                </a>
+                <a href="#" class="icon5a mx-1">
+                  <i class="fa-brands fa-facebook-f d-flex justify-content-center align-items-center icon5child"></i>
+                </a>
+                <a href="#" class="icon5a mx-1">
+                  <i class="fa-brands fa-instagram d-flex justify-content-center align-items-center icon5child"></i>
+                </a>
+                <a href="#" class="icon5a mx-1">
+                  <i class="fa-brands fa-youtube d-flex justify-content-center align-items-center icon5child"></i>
+                </a>
+                <a href="#" class="icon5a mx-1">
+                  <i class="fa-brands fa-tiktok d-flex justify-content-center align-items-center icon5child"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Contact us -->
+{% endblock %}
+{% block footer %}
+{% include 'partials/footer.html' %}
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+{% endblock %}

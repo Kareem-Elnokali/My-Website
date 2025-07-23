@@ -1,0 +1,368 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/all.min.css' %}" />
+<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/intlTelInput.css' %}" />
+  
+  {% endblock %}
+
+{% block content %}
+<style>
+ 
+  :root {
+    --primary: #466d31;
+    --primary-light: #466d31;
+    --primary-hover: #466d31;
+    --dark: #1a1a2e;
+    --light: #f8f9fa;
+    --gray: #e9ecef;
+    --border-radius: 10px;
+  }
+  /* Error styling */
+.invalid-feedback {
+    display: none;
+    font-size: 0.875em;
+    color: #dc3545;
+    align-items: center;
+}
+.iconbutton{
+  transition: 0.5s;
+
+}
+.iconbutton:hover{
+  transition: 0.5s;
+  background: #466d31;
+  color: #ffffff;
+}
+.is-invalid {
+    border-color: #dc3545 !important;
+    padding-right: 2.5rem !important;
+}
+
+/* Phone input specific */
+.input-phone-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.input-error-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #dc3545;
+    display: none;
+    z-index: 5;
+}
+
+/* Ensure dropdown appears above other elements */
+.iti__country-list {
+    z-index: 10 !important;
+}
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: #333;
+    }
+    
+    .signup-container {
+      max-width: 560px;
+    }
+    
+    .signup-card {
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+      border: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .signup-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    }
+    
+    .signup-header {
+      padding: 2rem 1.5rem;
+      background: linear-gradient(135deg, var(--primary) 0%, #466d31 100%);
+      color: white !important;
+    }
+    a{text-decoration: none}
+    .form-label i {
+      margin-right: 10px;
+      color: var(--primary);
+      width: 16px;
+    }
+    
+    .form-control {
+      border-radius: var(--border-radius);
+      background-color: var(--light);
+    }
+    
+    .form-control:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px #466d31;
+    }
+    
+    .btn-signup {
+      background-color: var(--primary);
+      color: white;
+      font-weight: 600;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 15px #466d31;
+      transition: all 0.5s;
+    }
+    
+    .btn-signup:hover {
+      background-color: #395828 !important;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px #466d31;
+      transition: all 0.5s;
+    }
+    
+    /* International Telephone Input Fixes */
+</style>
+{% include 'partials/navbar.html' %}
+
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <div class="card signup-card">
+        <div class="card-header signup-header py-4 text-center">
+          <h1 class="h2 mb-1">Create Your Account</h1>
+          <p class="mb-0">Join our learning platform today</p>
+        </div>
+        <div class="card-body p-4 p-md-5">
+          {% if messages %}
+            <div class="mb-4">
+              {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show d-flex align-items-center">
+                  <i class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %} m-1"></i>
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          <form method="post" id="signupForm" autocomplete="off" novalidate>
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger mb-4 d-flex align-items-center">
+                <i class="fas fa-exclamation-circle" style="color:#466d31; margin-right:0.5em"></i>
+                {{ form.non_field_errors }}
+              </div>
+            {% endif %}
+
+            <!-- Username -->
+            <div class="mb-3">
+              <label class="form-label"><i class="fas fa-user-tag" style="color:#466d31; margin-right:0.5em"></i> Username</label>
+              {% render_field form.username class="form-control" placeholder="Choose a username" %}
+              {% if form.username.errors %}
+                <div class="invalid-feedback d-block">
+                  {{ form.username.errors.0 }}
+                </div>
+              {% endif %}
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+              <label class="form-label"><i class="fas fa-envelope" style="color:#466d31; margin-right:0.5em"></i> Email</label>
+              {% render_field form.email class="form-control" placeholder="Enter your email address" %}
+              {% if form.email.errors %}
+                <div class="invalid-feedback d-block">
+                  {{ form.email.errors.0 }}
+                </div>
+              {% endif %}
+            </div>
+
+            <!-- Age -->
+            <div class="mb-3">
+              <label class="form-label"><i class="fas fa-hashtag" style="color:#466d31; margin-right:0.5em"></i> Age</label>
+              {% render_field form.age class="form-control" placeholder="Your age" %}
+              {% if form.age.errors %}
+                <div class="invalid-feedback d-block">
+                  {{ form.age.errors.0 }}
+                </div>
+              {% endif %}
+            </div>
+
+            <!-- How can you help us? -->
+            <div class="mb-3">
+              <label class="form-label"><i class="fas fa-hands-helping" style="color:#466d31; margin-right:0.5em"></i> How can you help us?</label>
+              {% render_field form.help_text class="form-control" placeholder="How can you help us?" rows="3" %}
+              {% if form.help_text.errors %}
+                <div class="invalid-feedback d-block">
+                  {{ form.help_text.errors.0 }}
+                </div>
+              {% endif %}
+            </div>
+
+            <!-- Password1 -->
+            <div class="mb-3">
+              <label class="form-label"><i class="fas fa-lock" style="color:#466d31; margin-right:0.5em"></i> Password</label>
+              {% render_field form.password1 class="form-control" placeholder="Create a password" %}
+              {% if form.password1.errors %}
+                <div class="invalid-feedback d-block">
+                  {{ form.password1.errors.0 }}
+                </div>
+              {% endif %}
+            </div>
+
+            <!-- Password2 -->
+            <div class="mb-4">
+              <label class="form-label"><i class="fas fa-lock" style="color:#466d31; margin-right:0.5em"></i> Confirm Password</label>
+              {% render_field form.password2 class="form-control" placeholder="Confirm your password" %}
+              {% if form.password2.errors %}
+                <div class="invalid-feedback d-block">
+                  {{ form.password2.errors.0 }}
+                </div>
+              {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-signup btn-lg w-100 py-3 iconbutton">
+              <i class="fas fa-user-plus icon" style=" margin-right:0.5em"></i> Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="card signup-card">
+          <div class="card-header signup-header py-4 text-center">
+            <h1 class="h2 mb-1">Create Your Account</h1>
+            <p class="mb-0">Join our learning platform today</p>
+          </div>
+          
+          <div class="card-body p-4 p-md-5">
+            {% if messages %}
+              <div class="mb-4">
+                {% for message in messages %}
+                  <div class="alert alert-{{ message.tags }} alert-dismissible fade show d-flex align-items-center">
+                    <i class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %} m-1"></i>
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            <form method="post" id="signupForm" autocomplete="off" novalidate>
+              {% csrf_token %}
+              
+              {% if form.non_field_errors %}
+                <div class="alert alert-danger mb-4 d-flex align-items-center">
+                  <i class="fas fa-exclamation-circle" style="color:#466d31; margin-right:0.5em"></i>
+                  {{ form.non_field_errors }}
+                </div>
+              {% endif %}
+
+              <!-- Username -->
+              <div class="mb-3">
+                <label class="form-label"><i class="fas fa-user-tag" style="color:#466d31; margin-right:0.5em"></i> Username</label>
+                {% render_field form.username class="form-control" placeholder="Choose a username" %}
+                {% if form.username.errors %}
+                  <div class="invalid-feedback d-flex align-items-center">
+                    <i class="fas fa-exclamation-circle" style="color:#466d31; margin-right:0.5em"></i>
+                    {{ form.username.errors|first }}
+                  </div>
+                {% endif %}
+                <small class="form-text text-muted">150 characters or fewer. Letters, digits and @/./+/-/_ only.</small>
+              </div>
+
+              <!-- Email -->
+              <div class="mb-3">
+                <label class="form-label"><i class="fas fa-envelope" style="color:#466d31; margin-right:0.5em"></i> Email Address</label>
+                {% render_field form.email class="form-control" placeholder="your@email.com" %}
+                {% if form.email.errors %}
+                  <div class="invalid-feedback d-flex align-items-center">
+                    <i class="fas fa-exclamation-circle" style="color:#466d31; margin-right:0.5em"></i>
+                    {{ form.email.errors|first }}
+                  </div>
+                {% endif %}
+              </div>
+
+              <!-- Age -->
+              <div class="mb-3">
+                <label class="form-label"><i class="fas fa-hashtag" style="color:#466d31; margin-right:0.5em"></i> Age</label>
+                {% render_field form.age class="form-control" placeholder="Your age" %}
+                {% if form.age.errors %}
+                  <div class="invalid-feedback d-flex align-items-center">
+                    <i class="fas fa-exclamation-circle" style="color:#466d31; margin-right:0.5em"></i>
+                    {{ form.age.errors|first }}
+                  </div>
+                {% endif %}
+              </div>
+
+              <!-- How can you help us? -->
+              <div class="mb-3">
+                <label class="form-label"><i class="fas fa-hands-helping" style="color:#466d31; margin-right:0.5em"></i> How can you help us?</label>
+                {% render_field form.help_text class="form-control" placeholder="How can you help us?" rows="3" %}
+                {% if form.help_text.errors %}
+                  <div class="invalid-feedback d-flex align-items-center">
+                    <i class="fas fa-exclamation-circle" style="color:#466d31; margin-right:0.5em"></i>
+                    {{ form.help_text.errors|first }}
+                  </div>
+                {% endif %}
+              </div>
+
+              <!-- Password Fields -->
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label"><i class="fas fa-lock" style="color:#466d31; margin-right:0.5em"></i> Password</label>
+                  {% render_field form.password1 class="form-control" placeholder="••••••••" %}
+                  {% if form.password1.errors %}
+                    <div class="invalid-feedback d-flex align-items-center">
+                      <i class="fas fa-exclamation-circle" style="color:#466d31; margin-right:0.5em"></i>
+                      {{ form.password1.errors|first }}
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label"><i class="fas fa-lock" style="color:#466d31; margin-right:0.5em"></i> Confirm Password</label>
+                  {% render_field form.password2 class="form-control" placeholder="••••••••" %}
+                  {% if form.password2.errors %}
+                    <div class="invalid-feedback d-flex align-items-center">
+                      <i class="fas fa-exclamation-circle" style="color:#466d31; margin-right:0.5em"></i>
+                      {{ form.password2.errors|first }}
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+
+
+
+              <button type="submit" class="btn btn-signup btn-lg w-100 py-3 iconbutton">
+                <i class="fas fa-user-plus icon" style="color:#ffffff !important; margin-right:0.5em"></i> Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% include 'partials/footer.html' %}
+
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'js/all.min.js' %}"></script>
+  <script src="{% static 'js/intlTelInput.min.js' %}"></script>
+  <script src="{% static 'js/signup-form.js' %}"></script>
+
+</body>
+</html>

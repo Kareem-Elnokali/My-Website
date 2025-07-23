@@ -1,0 +1,26 @@
+{% comment %}
+Shared sidebar for course/session navigation, for use in both course_detail and admin upload dashboard
+{% endcomment %}
+<button id="sidebarToggle" class="btn btn-light d-md-none" style="position:fixed;top:10px;left:10px;z-index:1100;"><i class="fa-solid fa-bars"></i></button>
+<aside class="sidebar" id="sidebarNav">
+  <h5 style="display:flex;align-items:center;justify-content:space-between;">
+    <span>{{ sidebar_title|default:'intensive est trial October' }}</span>
+    <button id="sidebarClose" class="btn btn-sm btn-light d-md-none" style="margin-left:10px;"><i class="fa-solid fa-times"></i></button>
+  </h5>
+  <div class="session-list">
+    {% for unit in units %}
+      <div class="session-title">session {{ forloop.counter }}</div>
+      <div class="topic-item">
+        <div>{{ unit.title }}</div>
+        <div style="margin-left: 1em;">
+          {% for lesson in unit.lessons.all %}
+            <a href="{% url 'course_detail' course.id %}?lesson={{ lesson.id }}" class="d-block text-white mb-1" style="text-decoration:underline;">{{ lesson.title }}</a>
+          {% empty %}
+            <span class="text-muted">No topics yet.</span>
+          {% endfor %}
+        </div>
+        <small>{{ unit.lessons.count }} Topics{% if unit.quiz_count %} | {{ unit.quiz_count }} Quiz{% endif %}</small>
+      </div>
+    {% endfor %}
+  </div>
+</aside>
